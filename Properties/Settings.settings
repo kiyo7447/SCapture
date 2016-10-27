@@ -1,0 +1,30 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Capture.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="OutputDirectory" Type="System.String" Scope="User">
+      <Value Profile="(Default)">.\</Value>
+    </Setting>
+    <Setting Name="FileName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">screen</Value>
+    </Setting>
+    <Setting Name="IsIncrement" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="ImageFormat" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Png</Value>
+    </Setting>
+    <Setting Name="ClipbordDataFormat" Type="System.String" Scope="User">
+      <Value Profile="(Default)">FileDropList</Value>
+    </Setting>
+    <Setting Name="FormOpacity" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">51</Value>
+    </Setting>
+    <Setting Name="CaptureWindowKey" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Ctrl+Alt+S</Value>
+    </Setting>
+    <Setting Name="CaptureScreenKey" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Ctrl+Alt+A</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
