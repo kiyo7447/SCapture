@@ -70,7 +70,7 @@ namespace Capture
 
 
 
-				//Shiftキー押下
+				//Shiftキー押下→Control押下に修正
 				//if (key == System.Windows.Forms.Keys.Shift)
 				if (key == System.Windows.Forms.Keys.Control)
 				{
