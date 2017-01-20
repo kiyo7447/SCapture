@@ -25,7 +25,8 @@ namespace Capture
 			{
 				return MainProc(args);
 
-			}catch (Exception ex)
+			}
+			catch (Exception ex)
 			{
 				MessageBox.Show(ex.Message);
 				//OSのログに保存
@@ -34,7 +35,7 @@ namespace Capture
 		}
 
 		static int MainProc(string[] args)
-		{ 
+		{
 			if (args.Length > 0)
 			{
 				if (args[0].ToUpper() == "/S")
@@ -57,16 +58,16 @@ namespace Capture
 
 
 
-                //なぜかGetActiveWindow()では上手くいかなかった。
-                int hwnd = User.GetForegroundWindow();
+				//なぜかGetActiveWindow()では上手くいかなかった。
+				int hwnd = User.GetForegroundWindow();
 
-                if (hwnd == 0)
-                {
-                    MessageBox.Show("アクティブウィンドウの取得に失敗しました。");
-                    return -1;
-                }
-                RECT rect = new RECT();
-                int ret = User.GetWindowRect((IntPtr)hwnd, ref rect);
+				if (hwnd == 0)
+				{
+					MessageBox.Show("アクティブウィンドウの取得に失敗しました。");
+					return -1;
+				}
+				RECT rect = new RECT();
+				int ret = User.GetWindowRect((IntPtr)hwnd, ref rect);
 
 
 
@@ -75,36 +76,37 @@ namespace Capture
 				if (key == System.Windows.Forms.Keys.Control)
 				{
 
-						//マルチモニタ対応
-						foreach (Screen screen in Screen.AllScreens)
-                    {
-                        if (rect.Left >= screen.Bounds.X  && rect.Left <= screen.Bounds.X + screen.Bounds.Width && rect.Top >= screen.Bounds.Y && rect.Top <= screen.Bounds.Y + screen.Bounds.Height) {
-                            rc = screen.Bounds;   
-                        }
-                    }
+					//マルチモニタ対応
+					foreach (Screen screen in Screen.AllScreens)
+					{
+						if (rect.Left >= screen.Bounds.X && rect.Left <= screen.Bounds.X + screen.Bounds.Width && rect.Top >= screen.Bounds.Y && rect.Top <= screen.Bounds.Y + screen.Bounds.Height)
+						{
+							rc = screen.Bounds;
+						}
+					}
 
-                    if (rc.IsEmpty == true)
-                    {
-                        //MessageBox.Show("set primary screen");
-                        //左隅がどこのモニタにも写っていなかったら、プライマリモニタをキャプチャする（適当ｗ
-                        rc = Screen.PrimaryScreen.Bounds;
-                    }
+					if (rc.IsEmpty == true)
+					{
+						//MessageBox.Show("set primary screen");
+						//左隅がどこのモニタにも写っていなかったら、プライマリモニタをキャプチャする（適当ｗ
+						rc = Screen.PrimaryScreen.Bounds;
+					}
 
-                    ////Debug Message
-                    //StringBuilder s = new StringBuilder();
-                    //s.AppendLine("rect.Left:" + rect.Left);      //Y座標
-                    //s.AppendLine("rect.Top:" + rect.Top);        //X座標
-                    //s.AppendLine("rect.Right:" + rect.Right);    //Y座標
-                    //s.AppendLine("rect.Bottom:" + rect.Bottom);  //X座標
+					////Debug Message
+					//StringBuilder s = new StringBuilder();
+					//s.AppendLine("rect.Left:" + rect.Left);      //Y座標
+					//s.AppendLine("rect.Top:" + rect.Top);        //X座標
+					//s.AppendLine("rect.Right:" + rect.Right);    //Y座標
+					//s.AppendLine("rect.Bottom:" + rect.Bottom);  //X座標
 
-                    //s.AppendLine("");  //X座標
+					//s.AppendLine("");  //X座標
 
-                    //s.AppendLine("rc.X:" + rc.X);               //Y座標
-                    //s.AppendLine("rc.Y:" + rc.Y);               //X座標
-                    //s.AppendLine("rc.Heght:" + rc.Height);      //Y座標
-                    //s.AppendLine("rc.Width:" + rc.Width);       //X座標
+					//s.AppendLine("rc.X:" + rc.X);               //Y座標
+					//s.AppendLine("rc.Y:" + rc.Y);               //X座標
+					//s.AppendLine("rc.Heght:" + rc.Height);      //Y座標
+					//s.AppendLine("rc.Width:" + rc.Width);       //X座標
 
-                    //MessageBox.Show(s.ToString());
+					//MessageBox.Show(s.ToString());
 
 				}
 				else
@@ -133,23 +135,23 @@ namespace Capture
 					//}
 					//else
 					//{
-						//マルチモニタ対応
-						const int Hosei = 4;		//フルスクリーン時の補正値
-						foreach (Screen screen in Screen.AllScreens)
+					//マルチモニタ対応
+					const int Hosei = 4;        //フルスクリーン時の補正値
+					foreach (Screen screen in Screen.AllScreens)
+					{
+						Rectangle fullRect = screen.Bounds;
+						//フルスクリーンの場合は補正を行う。
+						if ((rect.Top + Hosei) == fullRect.Top &&
+								(rect.Bottom - Hosei) == fullRect.Bottom &&
+								(rect.Left + Hosei) == fullRect.Left &&
+								(rect.Right - Hosei) == fullRect.Right)
 						{
-							Rectangle fullRect = screen.Bounds;
-							//フルスクリーンの場合は補正を行う。
-							if ((rect.Top + Hosei) == fullRect.Top &&
-									(rect.Bottom - Hosei) == fullRect.Bottom &&
-									(rect.Left + Hosei) == fullRect.Left &&
-									(rect.Right - Hosei) == fullRect.Right)
-							{
-								rect.Top = fullRect.Top;
-								rect.Bottom = fullRect.Bottom;
-								rect.Left = fullRect.Left;
-								rect.Right = fullRect.Right;
-							}
+							rect.Top = fullRect.Top;
+							rect.Bottom = fullRect.Bottom;
+							rect.Left = fullRect.Left;
+							rect.Right = fullRect.Right;
 						}
+					}
 					//}
 					rc = new Rectangle(rect.Left, rect.Top, rect.Right - rect.Left, rect.Bottom - rect.Top);
 				}
@@ -170,8 +172,8 @@ namespace Capture
 					//  rc.Size, CopyPixelOperation.SourceAnd);
 				}
 
-				
-				
+
+
 
 				// ビットマップ画像として保存して表示
 				string filePath = Path.Combine(setting.OutputDirectory, setting.FileName);
@@ -208,7 +210,8 @@ namespace Capture
 				if (setting.IsIncrement == true)
 				{
 					int cnt;
-					for (cnt = 1;cnt < 1000;cnt++) {
+					for (cnt = 1; cnt < 1000; cnt++)
+					{
 						string fp = filePath + cnt.ToString("000") + extensions;
 
 						if (File.Exists(fp) == false)
@@ -224,21 +227,21 @@ namespace Capture
 				}
 
 
-                string fileName = null;
-                try
-                {
-                    fileName = filePath + extensions;
-                    bmp.Save(fileName, @if);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("エラーの原因がGDI+の汎用エラーの場合、保存先への書き込み権限がないことが考えられます。" + Environment.NewLine + "保存ファイル名=" + fileName + ", 詳細=" + ex.ToString(), "エラー");
-                }
+				string fileName = null;
+				try
+				{
+					fileName = filePath + extensions;
+					bmp.Save(fileName, @if);
+				}
+				catch (Exception ex)
+				{
+					MessageBox.Show("エラーの原因がGDI+の汎用エラーの場合、保存先への書き込み権限がないことが考えられます。" + Environment.NewLine + "保存ファイル名=" + fileName + ", 詳細=" + ex.ToString(), "エラー");
+				}
 				//Process.Start(filePath);
 
 				StringCollection sc = new StringCollection();
-				sc.Add(filePath+extensions);
-				
+				sc.Add(filePath + extensions);
+
 				ClipbordDataFormat cdf = (ClipbordDataFormat)Enum.Parse(typeof(ClipbordDataFormat), setting.ClipbordDataFormat);
 
 				switch (cdf)
