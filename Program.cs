@@ -56,7 +56,8 @@ namespace Capture
 
 				System.Windows.Forms.Keys key = System.Windows.Forms.Control.ModifierKeys;
 
-				Thread.Sleep(1000);
+				//Debug 用
+				//Thread.Sleep(1000);
 
 				//なぜかGetActiveWindow()では上手くいかなかった。
 				int hwnd = User.GetForegroundWindow();
