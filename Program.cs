@@ -56,25 +56,35 @@ namespace Capture
 
 				System.Windows.Forms.Keys key = System.Windows.Forms.Control.ModifierKeys;
 
-
+				Thread.Sleep(1000);
 
 				//なぜかGetActiveWindow()では上手くいかなかった。
 				int hwnd = User.GetForegroundWindow();
+				//int hwnd = User.GetActiveWindow();
 
 				if (hwnd == 0)
 				{
 					MessageBox.Show("アクティブウィンドウの取得に失敗しました。");
 					return -1;
 				}
+				//Windows 7コード
+				//RECT rect = new RECT();
+				//int ret = User.GetWindowRect((IntPtr)hwnd, ref rect);
+
+				//
+				Rectangle rectn = Dwm.GetWindowRectangle((IntPtr)hwnd);
 				RECT rect = new RECT();
-				int ret = User.GetWindowRect((IntPtr)hwnd, ref rect);
-
-
+				rect.Bottom = rectn.Bottom;
+				rect.Top = rectn.Top;
+				rect.Left = rectn.Left;
+				rect.Right = rectn.Right;
 
 				//Shiftキー押下→Control押下に修正
 				//if (key == System.Windows.Forms.Keys.Shift)
 				if (key == System.Windows.Forms.Keys.Control)
 				{
+					//全画面を取得
+					//ただし、マルチモニタの場合は、対象のウィンドウがあるスクリーンをキャプチャします。
 
 					//マルチモニタ対応
 					foreach (Screen screen in Screen.AllScreens)
