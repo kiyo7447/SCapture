@@ -71,8 +71,8 @@ namespace Capture
 				//Windows 7コード
 				//RECT rect = new RECT();
 				//int ret = User.GetWindowRect((IntPtr)hwnd, ref rect);
-
-				//
+				//↓
+				//Windows 10対応
 				Rectangle rectn = Dwm.GetWindowRectangle((IntPtr)hwnd);
 				RECT rect = new RECT();
 				rect.Bottom = rectn.Bottom;

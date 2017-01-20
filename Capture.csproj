@@ -109,6 +109,9 @@
     </Compile>
     <Compile Include="Win32API\User.cs" />
     <Compile Include="Win32API\Win32.cs" />
+    <None Include="Release.cmd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Content Include="あくま.ico" />
