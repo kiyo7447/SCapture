@@ -5,7 +5,9 @@ replace Capture.pdb ^
 %KIYO_BIN%\DirectShell
 
 ::ヘルプファイルのコピー
-replace doc/cpture.man ^
-%KIYO_BIN%\Help\man
+::replace "./doc/capture.man" ^
+::%KIYO_BIN%\Help\man
+::⇒アホなことにreplaceでは、相対パス指定ができない
+copy /Y .\doc\*.man %KIYO_BIN%\\Help\man
 
 @pause

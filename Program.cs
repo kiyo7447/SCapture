@@ -15,8 +15,6 @@ namespace Capture
 {
 	static class Program
 	{
-		static bool _isActive = false;
-
 		/// <summary>
 		/// アプリケーションのメイン エントリ ポイントです。
 		/// </summary>
@@ -25,8 +23,27 @@ namespace Capture
 		{
 			try
 			{
-				return MainProc(args);
+				//メンテ画面の場合はメンテを起動する
+				if (args.Length > 0 && args[0].ToUpper() == "/S")
+				{
+					Application.EnableVisualStyles();
+					Application.SetCompatibleTextRenderingDefault(false);
+					Application.Run(new SettingForm());
+					return 0;
+				}
 
+				//フラグチェック
+				bool isActiveWindowOnly = false;
+				if (args.Length > 0)
+				{
+					if (args[0].ToUpper() == "/A") { 
+						isActiveWindowOnly = true;
+					} else
+					{
+						MessageBox.Show("無効なパラメータが引き渡されました。");
+					}
+				}
+				return MainProc(isActiveWindowOnly);
 			}
 			catch (Exception ex)
 			{
@@ -36,27 +53,9 @@ namespace Capture
 			}
 		}
 
-		static int MainProc(string[] args)
+		static int MainProc(bool isActiveWindowOnly)
 		{
-			if (args.Length > 0)
-			{
-				if (args[0].ToUpper() == "/S")
-				{
-					Application.EnableVisualStyles();
-					Application.SetCompatibleTextRenderingDefault(false);
-					Application.Run(new SettingForm());
-				}
-				if (args[0].ToUpper() == "/A")
-				{
-					_isActive = true;
-				}
-				else
-				{
-					MessageBox.Show("無効なパラメータが引き渡されました。");
-				}
-			}
-			else
-			{
+
 				Capture.Properties.Settings setting = new Capture.Properties.Settings();
 				Rectangle rc = Rectangle.Empty;
 
@@ -91,7 +90,7 @@ namespace Capture
 				//↓
 				//if (key == System.Windows.Forms.Keys.Control)
 				//Windows 10 1703対応
-				if (key == System.Windows.Forms.Keys.Control || _isActive == true)
+				if (key == System.Windows.Forms.Keys.Control || isActiveWindowOnly == true)
 				{
 					//全画面を取得
 					//ただし、マルチモニタの場合は、対象のウィンドウがあるスクリーンをキャプチャします。
@@ -276,7 +275,7 @@ namespace Capture
 					default:
 						throw new SystemException("無効なパラメターたです。ClipbordDataFormat=" + cdf);
 				}
-			}
+		
 			return 0;
 		}
 	}
