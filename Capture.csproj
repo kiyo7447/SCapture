@@ -92,6 +92,7 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <None Include="app.config" />
+    <None Include="doc\capture.man" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -109,6 +110,7 @@
     </Compile>
     <Compile Include="Win32API\User.cs" />
     <Compile Include="Win32API\Win32.cs" />
+    <None Include="README.md" />
     <None Include="Release.cmd">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -116,9 +118,7 @@
   <ItemGroup>
     <Content Include="あくま.ico" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="doc\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
       <Visible>False</Visible>

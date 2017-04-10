@@ -1,0 +1,13 @@
+﻿Capture [Version 1.0.0]
+(C) Copyright 1997-2006 Author Kiyotaka Abe.
+
+画面のハードコピーを取り、自動的にファイルを連番で作成します。
+また、作成したファイルをクリップボードにコピーします。
+
+capture [option]
+
+    option: /s      設定
+	option: /a      アクティブウィンドウのみCaptcha
+
+その他
+	Cntrolキーを押下したままだと、全画面キャプチャになります。

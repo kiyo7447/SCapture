@@ -15,6 +15,8 @@ namespace Capture
 {
 	static class Program
 	{
+		static bool _isActive = false;
+
 		/// <summary>
 		/// アプリケーションのメイン エントリ ポイントです。
 		/// </summary>
@@ -43,6 +45,10 @@ namespace Capture
 					Application.EnableVisualStyles();
 					Application.SetCompatibleTextRenderingDefault(false);
 					Application.Run(new SettingForm());
+				}
+				if (args[0].ToUpper() == "/A")
+				{
+					_isActive = true;
 				}
 				else
 				{
@@ -82,7 +88,10 @@ namespace Capture
 
 				//Shiftキー押下→Control押下に修正
 				//if (key == System.Windows.Forms.Keys.Shift)
-				if (key == System.Windows.Forms.Keys.Control)
+				//↓
+				//if (key == System.Windows.Forms.Keys.Control)
+				//Windows 10 1703対応
+				if (key == System.Windows.Forms.Keys.Control || _isActive == true)
 				{
 					//全画面を取得
 					//ただし、マルチモニタの場合は、対象のウィンドウがあるスクリーンをキャプチャします。

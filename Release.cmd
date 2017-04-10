@@ -4,4 +4,8 @@ replace Capture.exe ^
 replace Capture.pdb ^
 %KIYO_BIN%\DirectShell
 
+::ヘルプファイルのコピー
+replace doc/cpture.man ^
+%KIYO_BIN%\Help\man
+
 @pause
